@@ -1,0 +1,128 @@
+#!/bin/bash
+ABSPATH=$(
+    cd "$(dirname "$0")"
+    pwd -P
+)
+source $ABSPATH/config.sh $1
+source $ABSPATH/utils/utils.sh
+source $ABSPATH/utils/utils-orange.sh
+source $ABSPATH/utils/utils-amena.sh
+
+if [ $error = true ]; then
+    printf "¡Vaya! No has introducido el brand...¡Intentalo de nuevo!"
+    exit
+fi
+
+showLogo() {
+    if [ $brand = 'orange' ]; then
+        showLogo_orange
+    else
+        showLogo_amena
+    fi
+    showLastUpdate
+}
+
+showMenu() {
+    if [ $brand = 'orange' ]; then
+        showMenuInit_orange
+    else
+        showMenuInit_amena
+    fi
+}
+
+showSubmenu1() {
+    if [ $brand = 'orange' ]; then
+        showSubmenu1_orange
+    else
+        showSubmenu1_amena
+    fi
+}
+
+showSubmenu2() {
+    if [ $brand = 'orange' ]; then
+        showSubmenu2_orange
+    else
+        showSubmenu2_amena
+    fi
+}
+
+directUpdate() {
+    if [ $brand = 'orange' ]; then
+        directUpdate_orange
+    else
+        directUpdate_amena
+    fi
+}
+
+generateEnvVars() {
+    printf "\n"
+    utilsResponseWait "Generando archivo de entorno"
+    printf "\n"
+    cd $pathRepoOrange && grunt generate_env_vars:$1
+    printf "\n"
+    utilsResponseOK "Archivo de entorno generado correctamente"
+    # if [ "" ]; then
+    #     utilsResponseOK "Archivo de entorno generado correctamente"
+    # else
+    #     utilsResponseKO "Hemos tenido un problema al crear archivo de entorno..."
+    #     exit
+    # fi
+    printf "\n"
+    utilsResponseWait "Generando entorno"
+    cd $pathRepoOrange && grunt app_prepare >/dev/null
+    utilsResponseOK "Entorno generado correctamente"
+
+    # cd $pathRepoOrange && cordova build android
+    adb devices
+    # adb install /Users/jgomepav/apps/MiOrange/platforms/android/build/outputs/apk/PLAY_STORE/debug/MiOrange-PLAY_STORE-debug.apk
+    printf "ola k ase"
+
+}
+
+xx() {
+    clear
+    showMenu
+}
+
+optionsForQuestions() {
+    while [ $opt != '' ]; do
+        if [ $opt = '' ]; then
+            exit
+        else
+            case $opt in
+            1)
+                opt1=0
+                title="Configurar Entorno + Prepare"
+                clear
+                showSubmenu1
+                case $opt1 in
+                1) generateEnvVars "PRO:DELIVERY:s" ;;
+                2) generateEnvVars "PRO:DELIVERY_EDICION:s" ;;
+                3) generateEnvVars "PRO:PREVIEW_FACTURAS:s" ;;
+                4) generateEnvVars "PRO:UAT_DELIVERY:s" ;;
+                5) generateEnvVars "PRO:UAT_EDICION:s" ;;
+                6) generateEnvVars "UAT:DELIVERY:s" ;;
+                7) generateEnvVars "UAT:EDICION:s" ;;
+                xx) xx ;;
+                esac
+                read opt1
+                ;;
+            2)
+                opt2=0
+                title="Direct Update"
+                clear
+                showSubmenu2
+                case $opt2 in
+                1) directUpdate ;;
+                xx) xx ;;
+                esac
+                read opt2
+                ;;
+            esac
+        fi
+    done
+}
+
+clear
+showMenu
+optionsForQuestions
