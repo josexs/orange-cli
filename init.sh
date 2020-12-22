@@ -57,13 +57,12 @@ directUpdate() {
 generateEnvVars() {
     printf "\n"
     utilsResponseWait "Generando archivo de entorno"
-    printf "\n"
-    cd $pathRepoOrange && grunt generate_env_vars:$1
-    printf "\n"
+    cd $pathRepoOrange && grunt generate_env_vars:$1  >/dev/null
     utilsResponseOK "Archivo de entorno generado correctamente"
     utilsResponseWait "Generando entorno"
     cd $pathRepoOrange && grunt app_prepare >/dev/null
     utilsResponseOK "Entorno generado correctamente"
+    exit
     # cd $pathRepoOrange && cordova build android
     # adb devices
     # adb install /Users/jgomepav/apps/MiOrange/platforms/android/build/outputs/apk/PLAY_STORE/debug/MiOrange-PLAY_STORE-debug.apk
