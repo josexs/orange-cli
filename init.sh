@@ -54,18 +54,31 @@ directUpdate() {
     fi
 }
 
-generateEnvVars() {
+
+
+generateEnvVars_orange(){
     printf "\n"
-    utilsResponseWait "Generando archivo de entorno"
+    utilsResponseWait "Generando archivo de entorno Orange"
     cd $pathRepoOrange && grunt generate_env_vars:$1  >/dev/null
     utilsResponseOK "Archivo de entorno generado correctamente"
     utilsResponseWait "Generando entorno"
     cd $pathRepoOrange && grunt app_prepare >/dev/null
     utilsResponseOK "Entorno generado correctamente"
-    exit
     # cd $pathRepoOrange && cordova build android
     # adb devices
     # adb install /Users/jgomepav/apps/MiOrange/platforms/android/build/outputs/apk/PLAY_STORE/debug/MiOrange-PLAY_STORE-debug.apk
+
+    exit
+}
+generateEnvVars_amena(){
+    printf "\n"
+    utilsResponseWait "Generando archivo de entorno Amena"
+    cd $pathRepoAmena && grunt generate_env_vars:$1  >/dev/null
+    utilsResponseOK "Archivo de entorno generado correctamente"
+    utilsResponseWait "Generando entorno"
+    cd $pathRepoAmena && grunt app_prepare >/dev/null
+    utilsResponseOK "Entorno generado correctamente"
+    exit
 }
 
 xx() {
@@ -93,13 +106,13 @@ optionsForQuestions_orange() {
                 clear
                 showSubmenu1
                 case $opt1 in
-                1) generateEnvVars "PRO:DELIVERY:s" ;;
-                2) generateEnvVars "PRO:DELIVERY_EDICION:s" ;;
-                3) generateEnvVars "PRO:PREVIEW_FACTURAS:s" ;;
-                4) generateEnvVars "PRO:UAT_DELIVERY:s" ;;
-                5) generateEnvVars "PRO:UAT_EDICION:s" ;;
-                6) generateEnvVars "UAT:DELIVERY:s" ;;
-                7) generateEnvVars "UAT:EDICION:s" ;;
+                1) generateEnvVars_orange "PRO:DELIVERY:s" ;;
+                2) generateEnvVars_orange "PRO:DELIVERY_EDICION:s" ;;
+                3) ggenerateEnvVars_orange "PRO:PREVIEW_FACTURAS:s" ;;
+                4) generateEnvVars_orange "PRO:UAT_DELIVERY:s" ;;
+                5) generateEnvVars_orange "PRO:UAT_EDICION:s" ;;
+                6) generateEnvVars_orange "UAT:DELIVERY:s" ;;
+                7) generateEnvVars_orange "UAT:EDICION:s" ;;
                 xx) xx ;;
                 esac
                 read opt1
@@ -131,9 +144,9 @@ optionsForQuestions_amena() {
                 clear
                 showSubmenu1
                 case $opt1 in
-                1) generateEnvVars "PRO:DELIVERY:s" ;;
-                2) generateEnvVars "UAT:DELIVERY:s" ;;
-                3) generateEnvVars "UAT:EDICION:s" ;;
+                1) generateEnvVars_amena "PRO:DELIVERY:s" ;;
+                2) generateEnvVars_amena "UAT:DELIVERY:s" ;;
+                3) generateEnvVars_amena "UAT:EDICION:s" ;;
                 xx) xx ;;
                 esac
                 read opt1
