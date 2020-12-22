@@ -74,6 +74,14 @@ xx() {
 }
 
 optionsForQuestions() {
+    if [ $brand = 'orange' ]; then
+        optionsForQuestions_orange
+    else
+       optionsForQuestions_amena
+    fi
+}
+
+optionsForQuestions_orange() {
     while [ $opt != '' ]; do
         if [ $opt = '' ]; then
             exit
@@ -92,6 +100,40 @@ optionsForQuestions() {
                 5) generateEnvVars "PRO:UAT_EDICION:s" ;;
                 6) generateEnvVars "UAT:DELIVERY:s" ;;
                 7) generateEnvVars "UAT:EDICION:s" ;;
+                xx) xx ;;
+                esac
+                read opt1
+                ;;
+            2)
+                opt2=0
+                title="Direct Update"
+                clear
+                showSubmenu2
+                case $opt2 in
+                1) directUpdate ;;
+                xx) xx ;;
+                esac
+                read opt2
+                ;;
+            esac
+        fi
+    done
+}
+optionsForQuestions_amena() {
+    while [ $opt != '' ]; do
+        if [ $opt = '' ]; then
+            exit
+        else
+            case $opt in
+            1)
+                opt1=0
+                title="Configurar Entorno + Prepare"
+                clear
+                showSubmenu1
+                case $opt1 in
+                1) generateEnvVars "PRO:DELIVERY:s" ;;
+                2) generateEnvVars "UAT:DELIVERY:s" ;;
+                3) generateEnvVars "UAT:EDICION:s" ;;
                 xx) xx ;;
                 esac
                 read opt1

@@ -46,7 +46,7 @@ selectEnvAndPrepare() {
     printf "$opt1"
 }
 
-directUpdateVersions() {
+directUpdateVersionsOrange() {
     utilsResponseQuestion "¿Generar versiones de prueba $versionTestAndroid/$versionTestiOS? (s/n)"
     read testVersions
     utilsResponseQuestion "Introduce las versiones de Android, separadas por comas"
@@ -75,7 +75,7 @@ directUpdate_orange() {
     showLogo
 
     utilsResponseInfo "Creacion automatica de paquetes para DU\n"
-    directUpdateVersions
+    directUpdateVersionsOrange
     versionsAndroidTotal=${#versionsAndroidArray[@]}
     versionsiOSTotal=${#versionsiOSArray[@]}
     packagesToGenerate="$(($versionsAndroidTotal + $versionsiOSTotal))"
@@ -140,5 +140,7 @@ directUpdate_orange() {
 
     printf "\n"
     utilsResponseOK "Archivos movidos a la carpeta DU"
+    exit
 
 }
+
