@@ -61,22 +61,12 @@ generateEnvVars() {
     cd $pathRepoOrange && grunt generate_env_vars:$1
     printf "\n"
     utilsResponseOK "Archivo de entorno generado correctamente"
-    # if [ "" ]; then
-    #     utilsResponseOK "Archivo de entorno generado correctamente"
-    # else
-    #     utilsResponseKO "Hemos tenido un problema al crear archivo de entorno..."
-    #     exit
-    # fi
-    printf "\n"
     utilsResponseWait "Generando entorno"
     cd $pathRepoOrange && grunt app_prepare >/dev/null
     utilsResponseOK "Entorno generado correctamente"
-
     # cd $pathRepoOrange && cordova build android
-    adb devices
+    # adb devices
     # adb install /Users/jgomepav/apps/MiOrange/platforms/android/build/outputs/apk/PLAY_STORE/debug/MiOrange-PLAY_STORE-debug.apk
-    printf "ola k ase"
-
 }
 
 xx() {
