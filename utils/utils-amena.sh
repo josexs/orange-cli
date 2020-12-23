@@ -104,14 +104,14 @@ directUpdate_amena() {
     # Modificamos la version en cada deployment.data y creamos el zip
     for i in "${versionsAndroidArray[@]}"; do
         [ -d "$pathPackagesAmena/MiOrange-Androd-$i.zip" ] && rm "$pathPackagesAmena/MiOrange-Androd-$i.zip"
-        cd "$pathPackagesAmena/$packageDefaultMiAmenaAndroid/meta/" && sed -i -- "s/$versionDefaultAmena/$i/g" *
+        cd "$pathPackagesAmena/$packageDefaultMiAmenaAndroid/meta/" && sed -i "" "s/$versionDefaultAmena/$i/g" *
         cd "$pathPackagesAmena/$packageDefaultMiAmenaAndroid" && zip -rqo "$pathPackagesAmena/MiOrange-Androd-$i.zip" meta www
         utilsResponseOK "Version $i de Android, generada"
     done
 
     for i in "${versionsiOSArray[@]}"; do
         [ -d "$pathPackagesAmena/MiOrange-iOS-$i.zip" ] && rm "$pathPackagesAmena/MiOrange-iOS-$i.zip"
-        cd "$pathPackagesAmena/$packageDefaultMiAmenaiOS/meta/" && sed -i -- "s/$versionDefault/$i/g" *
+        cd "$pathPackagesAmena/$packageDefaultMiAmenaiOS/meta/" && sed -i "" "s/$versionDefault/$i/g" *
         cd "$pathPackagesAmena/$packageDefaultMiAmenaiOS" && zip -rqo "$pathPackagesAmena/MiOrange-iOS-$i.zip" meta www
         utilsResponseOK "Version $i de iOS, generada"
     done

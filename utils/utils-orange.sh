@@ -109,14 +109,14 @@ directUpdate_orange() {
     # Modificamos la version en cada deployment.data y creamos el zip
     for i in "${versionsAndroidArray[@]}"; do
         [ -d "$pathPackages/MiOrange-Androd-$i.zip" ] && rm "$pathPackages/MiOrange-Androd-$i.zip"
-        cd "$pathPackages/$packageDefaultMiOrangeAndroid/meta/" && sed -i -- "s/$versionDefault/$i/g" *
+        cd "$pathPackages/$packageDefaultMiOrangeAndroid/meta/" && sed -i "" "s/$versionDefault/$i/g" *
         cd "$pathPackages/$packageDefaultMiOrangeAndroid" && zip -rqo "$pathPackages/MiOrange-Androd-$i.zip" meta www
         utilsResponseOK "Version $i de Android, generada"
     done
 
     for i in "${versionsiOSArray[@]}"; do
         [ -d "$pathPackages/MiOrange-iOS-$i.zip" ] && rm "$pathPackages/MiOrange-iOS-$i.zip"
-        cd "$pathPackages/$packageDefaultMiOrangeiOS/meta/" && sed -i -- "s/$versionDefault/$i/g" *
+        cd "$pathPackages/$packageDefaultMiOrangeiOS/meta/" && sed -i "" "s/$versionDefault/$i/g" *
         cd "$pathPackages/$packageDefaultMiOrangeiOS" && zip -rqo "$pathPackages/MiOrange-iOS-$i.zip" meta www
         utilsResponseOK "Version $i de iOS, generada"
     done
