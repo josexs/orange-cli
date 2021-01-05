@@ -113,10 +113,10 @@ directUpdate_orange() {
         cd "$pathPackages/$packageDefaultMiOrangeAndroid" && zip -rqo "$pathPackages/MiOrange-Androd-$i.zip" meta www
         utilsResponseOK "Version $i de Android, generada"
     done
-
+   # Modificamos el bundel de ios para que apunte a PRO, ya que se generá con un bundel de PRE sed 's/ab/~~/g; s/bc/ab/g; s/~~/bc/g', en AMENA apunta correctamente a PRO, el cambio se debería de realizara en AMENA en  la version de Pruebas (50 para amena)
     for i in "${versionsiOSArray[@]}"; do
         [ -d "$pathPackages/MiOrange-iOS-$i.zip" ] && rm "$pathPackages/MiOrange-iOS-$i.zip"
-        cd "$pathPackages/$packageDefaultMiOrangeiOS/meta/" && sed -i "" "s/$versionDefault/$i/g" *
+        cd "$pathPackages/$packageDefaultMiOrangeiOS/meta/" && sed -i "" "s/$versionDefault/~~/g; s/$bundelOrangePre/$bundelOrangePro/g; s/~~/$i/g" *
         cd "$pathPackages/$packageDefaultMiOrangeiOS" && zip -rqo "$pathPackages/MiOrange-iOS-$i.zip" meta www
         utilsResponseOK "Version $i de iOS, generada"
     done
