@@ -11,12 +11,13 @@ showMenuInit_orange() {
     showLogo
     printf "${white}-${yellow} 1)${colorPrimary} Configurar Entorno + Prepare ${white}\n"
     printf "${white}-${yellow} 2)${colorPrimary} Direct Update ${white}\n"
-    printf "${white}-${yellow} 3)${colorPrimary} Varios ${white}\n"
+    printf "${white}-${yellow} 3)${colorPrimary} AppCenter ${white}\n"
     printf "\n"
     msgFooterForQuestions "x"
     read opt
 }
 
+# ENTORNOS
 showSubmenu1_orange() {
     showLogo
     utilsResponseQuestion "¿Que entorno necesitas?"
@@ -32,6 +33,7 @@ showSubmenu1_orange() {
     read opt1
 }
 
+# DU
 showSubmenu2_orange() {
     showLogo
     printf "${white}-${yellow} 1)${colorPrimary} Preparar paquetes DU ${white}\n"
@@ -40,8 +42,16 @@ showSubmenu2_orange() {
     read opt2
 }
 
-# Functions
+# APPCENTER
+showSubmenu3_orange() {
+    showLogo
+    printf "${white}-${yellow} 1)${colorPrimary} Subir APK y distribuir a grupo ${white}\n"
+    printf "\n"
+    msgFooterForQuestions "xx"
+    read opt3
+}
 
+# Functions
 selectEnvAndPrepare() {
     printf "$opt1"
 }
@@ -113,7 +123,7 @@ directUpdate_orange() {
         cd "$pathPackages/$packageDefaultMiOrangeAndroid" && zip -rqo "$pathPackages/MiOrange-Androd-$i.zip" meta www
         utilsResponseOK "Version $i de Android, generada"
     done
-   # Modificamos el bundel de ios para que apunte a PRO, ya que se generá con un bundel de PRE sed 's/ab/~~/g; s/bc/ab/g; s/~~/bc/g', en AMENA apunta correctamente a PRO, el cambio se debería de realizara en AMENA en  la version de Pruebas (50 para amena)
+    # Modificamos el bundel de ios para que apunte a PRO, ya que se generá con un bundel de PRE sed 's/ab/~~/g; s/bc/ab/g; s/~~/bc/g', en AMENA apunta correctamente a PRO, el cambio se debería de realizara en AMENA en  la version de Pruebas (50 para amena)
     for i in "${versionsiOSArray[@]}"; do
         [ -d "$pathPackages/MiOrange-iOS-$i.zip" ] && rm "$pathPackages/MiOrange-iOS-$i.zip"
         cd "$pathPackages/$packageDefaultMiOrangeiOS/meta/" && sed -i "" "s/$versionDefault/~~/g; s/$bundelOrangePre/$bundelOrangePro/g; s/~~/$i/g" *
@@ -144,3 +154,30 @@ directUpdate_orange() {
 
 }
 
+distributeAppCenter() {
+    clear
+    utilsResponseQuestion "¿A que grupo te gustaria enviar el APK?"
+    printf "${white}-${yellow} 1)${colorPrimary} Equipo APP ${white}\n"
+    printf "${white}-${yellow} 2)${colorPrimary} POs ${white}\n"
+    printf "${white}-${yellow} 3)${colorPrimary} Squad Te Pago ${white}\n"
+    printf "${white}-${yellow} 4)${colorPrimary} Squad Necesito Ayuda ${white}\n"
+    printf "${white}-${yellow} 5)${colorPrimary} Squad Aprendo ${white}\n"
+    printf "${white}-${yellow} 6)${colorPrimary} Squad Compro + ${white}\n\n"
+    msgFooterForQuestions "xxx"
+    read groupAppcenterQuestion
+
+    case $groupAppcenterQuestion in
+    1) distributeAppCenter2 "$appTeamAppCenter" ;;
+    2) distributeAppCenter2 "$posGroupAppCenter" ;;
+    3) distributeAppCenter2 "$squadTePagoGroupAppCenter" ;;
+    4) distributeAppCenter2 "$squadNecesitoAyudaGroupAppCenter" ;;
+    5) distributeAppCenter2 "$squadAprendoGroupAppCenter" ;;
+    6) distributeAppCenter2 "$squadComproMasGroupAppCenter" ;;
+    xxx) xx ;;
+    esac
+    read groupAppcenterQuestion
+}
+
+distributeAppCenter2() {
+    distribute release --app $appIdAppCenter --group $1 -f $pathAPKOrange
+}

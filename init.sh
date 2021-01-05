@@ -9,7 +9,7 @@ source $ABSPATH/utils/utils-orange.sh
 source $ABSPATH/utils/utils-amena.sh
 
 if [ $error = true ]; then
-    printf "¡Vaya! No has introducido el brand...¡Intentalo de nuevo!"
+    utilsResponseKO "¡Vaya! No has introducido la marca... ¡Intentalo de nuevo!"
     exit
 fi
 
@@ -46,6 +46,14 @@ showSubmenu2() {
     fi
 }
 
+showSubmenu3() {
+    if [ $brand = 'orange' ]; then
+        showSubmenu3_orange
+    else
+        showSubmenu3_amena
+    fi
+}
+
 directUpdate() {
     if [ $brand = 'orange' ]; then
         directUpdate_orange
@@ -54,12 +62,10 @@ directUpdate() {
     fi
 }
 
-
-
-generateEnvVars_orange(){
+generateEnvVars_orange() {
     printf "\n"
     utilsResponseWait "Generando archivo de entorno Orange"
-    cd $pathRepoOrange && grunt generate_env_vars:$1  >/dev/null
+    cd $pathRepoOrange && grunt generate_env_vars:$1 >/dev/null
     utilsResponseOK "Archivo de entorno generado correctamente"
     utilsResponseWait "Generando entorno"
     cd $pathRepoOrange && grunt app_prepare >/dev/null
@@ -70,10 +76,10 @@ generateEnvVars_orange(){
 
     exit
 }
-generateEnvVars_amena(){
+generateEnvVars_amena() {
     printf "\n"
     utilsResponseWait "Generando archivo de entorno Amena"
-    cd $pathRepoAmena && grunt generate_env_vars:$1  >/dev/null
+    cd $pathRepoAmena && grunt generate_env_vars:$1 >/dev/null
     utilsResponseOK "Archivo de entorno generado correctamente"
     utilsResponseWait "Generando entorno"
     cd $pathRepoAmena && grunt app_prepare >/dev/null
@@ -90,7 +96,7 @@ optionsForQuestions() {
     if [ $brand = 'orange' ]; then
         optionsForQuestions_orange
     else
-       optionsForQuestions_amena
+        optionsForQuestions_amena
     fi
 }
 
@@ -127,6 +133,17 @@ optionsForQuestions_orange() {
                 xx) xx ;;
                 esac
                 read opt2
+                ;;
+            3)
+                opt3=0
+                title="AppCenter"
+                clear
+                showSubmenu3
+                case $opt3 in
+                1) distributeAppCenter ;;
+                xx) xx ;;
+                esac
+                read opt3
                 ;;
             esac
         fi

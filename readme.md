@@ -1,7 +1,17 @@
 # Orange CLI
 Script para generacion de entornos y direct updates en **Orange/Amena**
 ### Configuracion
-Tienes que abrir el archivo config.sh y editar en la linea 8 y 9 indicar los paths de los repos
+Creamos un archivo .env en la raiz con los siguientes datos:
+```
+pathRepoOrange=""
+pathRepoAmena=""
+appIdAppCenter=""
+```
+
+### Requisitos
+- Appcenter CLI
+  npm install -g appcenter-cli
+
 
 ### Iniciar CLI
 - **sh init.sh orange**
