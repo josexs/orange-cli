@@ -17,6 +17,12 @@ packageDefaultMiOrangeiOS='com.everis.orange.miorange.pro-ios-6.6.6'
 packageDefaultMiAmenaAndroid='com.orange.miamena-android-4.3.0'
 packageDefaultMiAmenaiOS='com.orange.sp.miamena-ios-4.3.0'
 
+
+bundelOrangePro="com.orange.sp.miorange"
+bundelAmenenaPro="com.orange.sp.miamena"
+bundelOrangePre="com.everis.orange.miorange.pro"
+bundelAmenenaPre="com.everis.orange.miamena.pro"
+
 versionDefault="6.6.6"
 versionDefaultAmena="4.3.0"
 appChecksum=""
