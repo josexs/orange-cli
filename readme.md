@@ -12,6 +12,10 @@ appIdAppCenter=""
 - Appcenter CLI
   npm install -g appcenter-cli
 
+- Logarte en Appcenter CLI
+  appcenter login y seguir los pasos
+
+  **Nota: APPCenter de momento solo esta implementado en Orange para los APKs**
 
 ### Iniciar CLI
 - **sh init.sh orange**

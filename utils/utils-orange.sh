@@ -156,28 +156,92 @@ directUpdate_orange() {
 
 distributeAppCenter() {
     clear
+    utilsResponseQuestion "¿Quieres generar el APK? (s/n)"
+    read quiereAPK
+
+    if [[ "$quiereAPK" = "n" ]]; then
+        utilsResponseQuestion "Introduce la ruta exacta del apk"
+        read pathAPKNoGenerated
+        if [ -f ${pathAPKNoGenerated} ]; then
+            utilsResponseOK "APK Encontrado"
+        else
+            utilsResponseKO "El APK no existe en la ruta proporcionada"
+            exit
+        fi
+    fi
     utilsResponseQuestion "¿A que grupo te gustaria enviar el APK?"
     printf "${white}-${yellow} 1)${colorPrimary} Equipo APP ${white}\n"
     printf "${white}-${yellow} 2)${colorPrimary} POs ${white}\n"
     printf "${white}-${yellow} 3)${colorPrimary} Squad Te Pago ${white}\n"
-    printf "${white}-${yellow} 4)${colorPrimary} Squad Necesito Ayuda ${white}\n"
-    printf "${white}-${yellow} 5)${colorPrimary} Squad Aprendo ${white}\n"
-    printf "${white}-${yellow} 6)${colorPrimary} Squad Compro + ${white}\n\n"
+    printf "${white}-${yellow} 4)${colorPrimary} Squad Gestiona mi cuenta ${white}\n"
+    printf "${white}-${yellow} 5)${colorPrimary} Squad Necesito Ayuda ${white}\n"
+    printf "${white}-${yellow} 6)${colorPrimary} Squad Aprendo ${white}\n"
+    printf "${white}-${yellow} 7)${colorPrimary} Squad Compro + ${white}\n\n"
     msgFooterForQuestions "xxx"
     read groupAppcenterQuestion
 
+    utilsResponseInfo "Escribe la release note"
+    read releaseNote
+
+    if [[ "$quiereAPK" = "s" ]]; then
+        utilsResponseInfo "Generando APK... Tomatelo con calma, suelen ser 3 minutos 😅"
+        cd $pathRepoOrange && grunt generate_env_vars:PRO:DELIVERY:s
+        cd $pathRepoOrange && grunt app_prepare:android
+        cd $pathRepoOrange/platforms/android && chmod 777 gradlew
+        cd $pathRepoOrange/platforms/android && ./gradlew clean
+        cd $pathRepoOrange/platforms/android && ./gradlew assemblePLAY_STOREDebug
+    fi
     case $groupAppcenterQuestion in
-    1) distributeAppCenter2 "$appTeamAppCenter" ;;
-    2) distributeAppCenter2 "$posGroupAppCenter" ;;
-    3) distributeAppCenter2 "$squadTePagoGroupAppCenter" ;;
-    4) distributeAppCenter2 "$squadNecesitoAyudaGroupAppCenter" ;;
-    5) distributeAppCenter2 "$squadAprendoGroupAppCenter" ;;
-    6) distributeAppCenter2 "$squadComproMasGroupAppCenter" ;;
+    1) distributeAppCenter2 $appGroupAppCenter $releaseNote $quiereAPK $pathAPKNoGenerated ;;
+    2) distributeAppCenter2 $posGroupAppCenter $releaseNote $quiereAPK $pathAPKNoGenerated ;;
+    3) distributeAppCenter2 $squadTePagoGroupAppCenter $releaseNote $quiereAPK $pathAPKNoGenerated ;;
+    4) distributeAppCenter2 $squadGestionaMiCuentaGroupAppCenter $releaseNote $quiereAPK $pathAPKNoGenerated ;;
+    5) distributeAppCenter2 $squadNecesitoAyudaGroupAppCenter $releaseNote $quiereAPK $pathAPKNoGenerated ;;
+    6) distributeAppCenter2 $squadAprendoGroupAppCenter $releaseNote $quiereAPK $pathAPKNoGenerated ;;
+    7) distributeAppCenter2 $squadComproMasGroupAppCenter $releaseNote $quiereAPK $pathAPKNoGenerated ;;
     xxx) xx ;;
     esac
     read groupAppcenterQuestion
 }
 
 distributeAppCenter2() {
-    distribute release --app $appIdAppCenter --group $1 -f $pathAPKOrange
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+    pathAPK=""
+
+    if [[ "$3" = "n" ]]; then
+        pathAPK=$4
+    else
+        pathAPK=$pathAPKOrange
+    fi
+    if nvm -v >/dev/null 2>&1; then
+        printf "\n"
+        utilsResponseWait "Subiendo APK y distribuyendo a grupo..."
+        nvm install 10 >/dev/null 2>&1
+        nvm use 10 >/dev/null 2>&1
+        if appcenter distribute release --app $appIdAppCenter --group $1 -r "$2" -f $pathAPK; then
+            nvm use 6.9.3 >/dev/null 2>&1
+            utilsResponseOK "APK subido correctamente y distribuido al grupo $1"
+        else
+            utilsResponseKO "Ha habido un problema al subir y distribuir el APK, revisalo"
+        fi
+    else
+        utilsResponseInfo "No tienes NVM, instalando..."
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash >/dev/null 2>&1
+        export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        printf "\n"
+        utilsResponseWait "Subiendo APK y distribuyendo a grupo..."
+        printf "\n"
+        nvm install 10 >/dev/null 2>&1
+        nvm use 10 >/dev/null 2>&1
+        if appcenter distribute release --app $appIdAppCenter --group $1 -r "$releaseNote" -f $pathAPK; then
+            nvm use 6.9.3 >/dev/null 2>&1
+            utilsResponseOK "APK subido correctamente y distribuido al grupo $1"
+        else
+            utilsResponseKO "Ha habido un problema al subir y distribuir el APK, revisalo"
+        fi
+    fi
+    exit
 }
