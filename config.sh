@@ -25,17 +25,17 @@ packageDefaultMiAmenaAndroid='com.orange.miamena-android-4.3.0'
 packageDefaultMiAmenaiOS='com.orange.sp.miamena-ios-4.3.0'
 
 bundelOrangePro="com.orange.sp.miorange"
-bundelAmenenaPro="com.orange.sp.miamena"
+bundelAmenaPro="com.orange.sp.miamena"
 bundelOrangePre="com.everis.orange.miorange.pro"
-bundelAmenenaPre="com.everis.orange.miamena.pro"
+bundelAmenaPre="com.everis.orange.miamena.pro"
 
 versionDefault="6.6.6"
 versionDefaultAmena="4.3.0"
 appChecksum=""
-versionTestAndroid="30"
-versionTestiOS="30"
-versionTestiOSAmena="50"
-versionTestAndroidAmena="50"
+versionTestAndroid="30.0"
+versionTestiOS="30.0"
+versionTestiOSAmena="50.0"
+versionTestAndroidAmena="50.0"
 
 #APPCENTER
 appGroupAppCenter="APP"
