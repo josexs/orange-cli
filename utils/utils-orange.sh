@@ -113,23 +113,36 @@ directUpdate_orange() {
     for i in "${appChecksumArray[@]}"; do
         appChecksum=$i
     done
-
+    #Variable temporales para resolver bug que solo se cambia la version con la primera vuelta y que se almacene la última modificada (ios/android)
     utilsResponseOK "appChecksum: ${appChecksum} \n"
+    tempVersion=${versionDefault}
+    lastVersionAndroid=${versionDefault}
+    lastVersionIos=${versionDefault}
+    
 
     # Modificamos la version en cada deployment.data y creamos el zip
     for i in "${versionsAndroidArray[@]}"; do
+        
         [ -d "$pathPackages/MiOrange-Androd-$i.zip" ] && rm "$pathPackages/MiOrange-Androd-$i.zip"
-        cd "$pathPackages/$packageDefaultMiOrangeAndroid/meta/" && sed -i "" "s/$versionDefault/$i/g" *
+        cd "$pathPackages/$packageDefaultMiOrangeAndroid/meta/" && sed -i "" "s/$tempVersion/$i/g" *
         cd "$pathPackages/$packageDefaultMiOrangeAndroid" && zip -rqo "$pathPackages/MiOrange-Androd-$i.zip" meta www
         utilsResponseOK "Version $i de Android, generada"
+        tempVersion=$i
+        lastVersionAndroid=$i
     done
+    tempVersion=${versionDefault}
     # Modificamos el bundel de ios para que apunte a PRO, ya que se generá con un bundel de PRE sed 's/ab/~~/g; s/bc/ab/g; s/~~/bc/g', en AMENA apunta correctamente a PRO, el cambio se debería de realizara en AMENA en  la version de Pruebas (50 para amena)
     for i in "${versionsiOSArray[@]}"; do
         [ -d "$pathPackages/MiOrange-iOS-$i.zip" ] && rm "$pathPackages/MiOrange-iOS-$i.zip"
-        cd "$pathPackages/$packageDefaultMiOrangeiOS/meta/" && sed -i "" "s/$versionDefault/~~/g; s/$bundelOrangePre/$bundelOrangePro/g; s/~~/$i/g" *
+        cd "$pathPackages/$packageDefaultMiOrangeiOS/meta/" && sed -i "" "s/$tempVersion/~~/g; s/$bundelOrangePre/$bundelOrangePro/g; s/~~/$i/g" *
         cd "$pathPackages/$packageDefaultMiOrangeiOS" && zip -rqo "$pathPackages/MiOrange-iOS-$i.zip" meta www
         utilsResponseOK "Version $i de iOS, generada"
+        tempVersion=$i
+        lastVersionIos=$i
     done
+    # Crear la version de prueba sí selecciono sí
+    generarVersionTest
+    
 
     # Eliminamos las carpetas descomprimidas
     rm -r $pathPackages/$packageDefaultMiOrangeAndroid
@@ -145,13 +158,37 @@ directUpdate_orange() {
     for i in "${versionsiOSArray[@]}"; do
         mv "$pathPackages/MiOrange-iOS-$i.zip" "$pathPackages/DU/MiOrange-iOS-$i.zip"
     done
-
+     # Movemos la version  de prueba sí selecciono sí junto las versiones de PRO
+    moverVersionTestDU
     cp $pathBrowser/miorange_web.zip $pathPackages/DU/miorange_web.zip
 
     printf "\n"
     utilsResponseOK "Archivos movidos a la carpeta DU"
     exit
 
+}
+
+generarVersionTest() {
+    if [[ "$testVersions" = "s" ]]; then
+        utilsResponseQuestion "Generando version de pruebas $versionTestAndroid/$versionTestiOS"
+        [ -d "$pathPackages/MiOrange-Androd-$versionTestAndroid.zip" ] && rm "$pathPackages/MiOrange-Androd-$versionTestAndroid.zip"
+        cd "$pathPackages/$packageDefaultMiOrangeAndroid/meta/" && sed -i "" "s/$lastVersionAndroid/$versionTestAndroid/g" *
+        cd "$pathPackages/$packageDefaultMiOrangeAndroid" && zip -rqo "$pathPackages/MiOrange-Androd-$versionTestAndroid.zip" meta www
+        utilsResponseOK "Version $versionTestAndroid  Tets de Android, generada"
+        [ -d "$pathPackages/MiOrange-iOS-$versionTestiOS.zip" ] && rm "$pathPackages/MiOrange-iOS-$versionTestiOS.zip"
+        cd "$pathPackages/$packageDefaultMiOrangeiOS/meta/" && sed -i "" "s/$lastVersionIos/~~/g; s/$bundelOrangePro/$bundelOrangePre/g; s/~~/$versionTestiOS/g" * 
+        
+
+        cd "$pathPackages/$packageDefaultMiOrangeiOS" && zip -rqo "$pathPackages/MiOrange-iOS-$versionTestiOS.zip" meta www
+        utilsResponseOK "Version $versionTestiOS Test de iOS, generada"
+    fi
+
+}
+moverVersionTestDU(){
+    if [[ "$testVersions" = "s" ]]; then
+      mv "$pathPackages/MiOrange-Androd-$versionTestAndroid.zip" "$pathPackages/DU/MiOrange-Androd-$versionTestAndroid.zip"
+      mv "$pathPackages/MiOrange-iOS-$versionTestiOS.zip" "$pathPackages/DU/MiOrange-iOS-$versionTestiOS.zip"
+    fi
 }
 
 distributeAppCenter() {
@@ -215,7 +252,7 @@ distributeAppCenter2() {
     else
         pathAPK=$pathAPKOrange
     fi
-    if nvm -v >/dev/null 2>&1; then
+    if nvm --version >/dev/null 2>&1; then
         printf "\n"
         utilsResponseWait "Subiendo APK y distribuyendo a grupo..."
         nvm install 10 >/dev/null 2>&1
@@ -243,5 +280,6 @@ distributeAppCenter2() {
             utilsResponseKO "Ha habido un problema al subir y distribuir el APK, revisalo"
         fi
     fi
+    nvm use 6.9.3 >/dev/null 2>&1
     exit
 }
