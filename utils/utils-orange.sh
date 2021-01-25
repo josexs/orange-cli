@@ -96,7 +96,7 @@ directUpdate_orange() {
     [ -d "$pathPackages/$packageDefaultMiOrangeiOS" ] && rm -r "$pathPackages/$packageDefaultMiOrangeiOS"
 
     # Generamos DU
-    # cd $pathRepoOrange && grunt DU
+    cd $pathRepoOrange && grunt DU
 
     utilsResponseWait "Descomprimiendo zip Android\n"
     cd $pathPackages && unzip -q "$packageDefaultMiOrangeAndroid.zip" -d "$pathPackages/$packageDefaultMiOrangeAndroid"
