@@ -6,6 +6,10 @@ Creamos un archivo .env en la raiz con los siguientes datos:
 pathRepoOrange=""
 pathRepoAmena=""
 appIdAppCenter=""
+userMF=""
+servidorMF=""
+rutaBusqueda=""
+archivoBusqueda=""
 ```
 
 ### Requisitos
