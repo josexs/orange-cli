@@ -7,6 +7,7 @@ source $ABSPATH/config.sh $1
 source $ABSPATH/utils/utils.sh
 source $ABSPATH/utils/utils-orange.sh
 source $ABSPATH/utils/utils-amena.sh
+source $ABSPATH/subirRedireccion.sh
 
 if [ $error = true ]; then
     utilsResponseKO "¡Vaya! No has introducido la marca... ¡Intentalo de nuevo!"
@@ -131,6 +132,7 @@ optionsForQuestions_orange() {
                 case $opt2 in
                 1) directUpdate ;;
                 2) buscarFullDelta ;;
+                3) subirArchivos ;;
                 xx) xx ;;
                 esac
                 read opt2

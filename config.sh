@@ -33,6 +33,13 @@ archivoBusqueda=$(grep archivoBusqueda .env | xargs)
 IFS='=' read -ra archivoBusqueda <<<"$archivoBusqueda"
 archivoBusqueda=${archivoBusqueda[1]}
 
+archivoSubida2=$(grep archivoSubida2 .env | xargs)
+IFS='=' read -ra archivoSubida2 <<<"$archivoSubida2"
+archivoSubida2=${archivoSubida2[1]}
+
+ruta_base=$(grep ruta_base .env | xargs)
+IFS='=' read -ra ruta_base <<<"$ruta_base"
+ruta_base=${ruta_base[1]}
 
 pathPackages="$pathRepoOrange/mobilefirst"
 pathBrowser="$pathRepoOrange/archive"
