@@ -1,2 +1,4 @@
 .env
+/scriptsSubirArchivos/
+scriptsSubirArchivos/**
 npm-debug.log
