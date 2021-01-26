@@ -8,12 +8,31 @@ ABSPATH=$(
 pathRepoOrange=$(grep pathRepoOrange .env | xargs)
 IFS='=' read -ra pathRepoOrange <<<"$pathRepoOrange"
 pathRepoOrange=${pathRepoOrange[1]}
+
 pathRepoAmena=$(grep pathRepoAmena .env | xargs)
 IFS='=' read -ra pathRepoAmena <<<"$pathRepoAmena"
 pathRepoAmena=${pathRepoAmena[1]}
+
 appIdAppCenter=$(grep appIdAppCenter .env | xargs)
 IFS='=' read -ra appIdAppCenter <<<"$appIdAppCenter"
 appIdAppCenter=${appIdAppCenter[1]}
+
+servidorMF=$(grep servidorMF .env | xargs)
+IFS='=' read -ra servidorMF <<<"$servidorMF"
+servidorMF=${servidorMF[1]}
+
+userMF=$(grep userMF .env | xargs)
+IFS='=' read -ra userMF <<<"$userMF"
+userMF=${userMF[1]}
+
+rutaBusqueda=$(grep rutaBusqueda .env | xargs)
+IFS='=' read -ra rutaBusqueda <<<"$rutaBusqueda"
+rutaBusqueda=${rutaBusqueda[1]}
+
+archivoBusqueda=$(grep archivoBusqueda .env | xargs)
+IFS='=' read -ra archivoBusqueda <<<"$archivoBusqueda"
+archivoBusqueda=${archivoBusqueda[1]}
+
 
 pathPackages="$pathRepoOrange/mobilefirst"
 pathBrowser="$pathRepoOrange/archive"

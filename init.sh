@@ -130,6 +130,7 @@ optionsForQuestions_orange() {
                 showSubmenu2
                 case $opt2 in
                 1) directUpdate ;;
+                2) buscarFullDelta ;;
                 xx) xx ;;
                 esac
                 read opt2

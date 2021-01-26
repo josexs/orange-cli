@@ -37,6 +37,7 @@ showSubmenu1_orange() {
 showSubmenu2_orange() {
     showLogo
     printf "${white}-${yellow} 1)${colorPrimary} Preparar paquetes DU ${white}\n"
+    printf "${white}-${yellow} 2)${colorPrimary} Buscar full y delta ${white}\n"
     printf "\n"
     msgFooterForQuestions "xx"
     read opt2
@@ -54,6 +55,10 @@ showSubmenu3_orange() {
 # Functions
 selectEnvAndPrepare() {
     printf "$opt1"
+}
+
+buscarFullDelta(){
+    ssh $userMF@$servidorMF 'bash -s'  < buscarArchivo.sh $rutaBusqueda $archivoBusqueda
 }
 
 directUpdateVersionsOrange() {
