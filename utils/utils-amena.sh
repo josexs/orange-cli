@@ -31,6 +31,7 @@ showSubmenu1_amena() {
 showSubmenu2_amena() {
     showLogo
     printf "${white}-${yellow} 1)${colorPrimary} Preparar paquetes DU ${white}\n"
+    printf "${white}-${yellow} 2)${colorPrimary} Buscar full y delta ${white}\n"
     printf "\n"
     msgFooterForQuestions "xx"
     read opt2
