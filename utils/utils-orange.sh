@@ -59,7 +59,7 @@ selectEnvAndPrepare() {
 }
 
 buscarFullDelta(){
-    ssh $userMF@$servidorMF 'bash -s'  < buscarArchivo.sh $rutaBusqueda $archivoBusqueda
+    ssh $userMF@$servidorMF 'bash -s'  < buscarArchivo.sh $rutaBusqueda $archivoBusqueda $servidorMF
 }
 
 directUpdateVersionsOrange() {

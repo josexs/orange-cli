@@ -7,6 +7,7 @@ loEncontro=1;# Booleano
 Exito=0;# Booleano
 rutaBusqueda=$1;
 archivoBusqueda=$2;
+HOST=$3;
 ## Lógica
 
 cd $rutaBusqueda;
