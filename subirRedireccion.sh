@@ -73,10 +73,10 @@ funcionalidadSubirArchivos() {
     echo "Se crean las carpetas 664 al $archivoBusqueda"
     echo "************************";
     echo
-    echo sh $EJECUTA1 "mkdir -p $directorio_final"
-    echo sh $EJECUTA2 "mkdir -p $directorio_final"
-    echo sh $EJECUTA1 "mkdir $directorio_final"
-    echo sh $EJECUTA2 "mkdir $directorio_final"
+    sh $EJECUTA1 "mkdir -p $directorio_final"
+    sh $EJECUTA2 "mkdir -p $directorio_final"
+    sh $EJECUTA1 "mkdir $directorio_final"
+    sh $EJECUTA2 "mkdir $directorio_final"
     echo
     echo
 
@@ -85,8 +85,8 @@ funcionalidadSubirArchivos() {
     echo "Se sube $archivoBusqueda"
     echo "************************";
     echo
-    echo sh $UPLOAD1 $archivoBusqueda $directorio_final
-    echo sh $UPLOAD2 $archivoBusqueda $directorio_final
+    sh $UPLOAD1 $archivoBusqueda $directorio_final
+    sh $UPLOAD2 $archivoBusqueda $directorio_final
     echo
 
     #Se dan permisos a los archivos
@@ -94,8 +94,8 @@ funcionalidadSubirArchivos() {
     echo "Se dan permisos 644 al $archivoBusqueda"
     echo "************************";
     echo
-    echo sh $EJECUTA1 "chmod 644 $directorio_final/$archivoBusqueda"
-    echo sh $EJECUTA2 "chmod 644 $directorio_final/$archivoBusqueda"
+    sh $EJECUTA1 "chmod 644 $directorio_final/$archivoBusqueda"
+    sh $EJECUTA2 "chmod 644 $directorio_final/$archivoBusqueda"
     echo
 
     #Se hace lo mismo para el delta
@@ -104,15 +104,15 @@ funcionalidadSubirArchivos() {
         echo "Se sube $archivoSubida2"
         echo "************************";
         echo
-        echo sh $UPLOAD1 $archivoSubida2 $directorio_final
-        echo sh $UPLOAD2 $archivoSubida2 $directorio_final
+        sh $UPLOAD1 $archivoSubida2 $directorio_final
+        sh $UPLOAD2 $archivoSubida2 $directorio_final
         echo
         echo "************************";
         echo "Se dan permisos 644 al $archivoSubida2"
         echo "************************";
         echo
-        echo sh $EJECUTA1 "chmod 644 $directorio_final/$archivoSubida2"
-        echo sh $EJECUTA2 "chmod 644 $directorio_final/$archivoSubida2"
+        sh $EJECUTA1 "chmod 644 $directorio_final/$archivoSubida2"
+        sh $EJECUTA2 "chmod 644 $directorio_final/$archivoSubida2"
     else
         echo "No se ha subido el delta, ya que no existe"
     fi
