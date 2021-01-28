@@ -19,9 +19,10 @@ do
     #mira las lineas del txt
     let numero_filas=$(wc -l ficheritoEfimeroParaHacerRedireccion.txt| awk '{print $1}'); 
     let CONTADOR-=1;
-    echo
-    echo "Se encontaron "$numero_filas" resultados";
-    echo "De los ultimos "$CONTADOR" minutos"
+    #echo
+    #echo "Se encontaron "$numero_filas" resultados";
+    #echo "De los ultimos "$CONTADOR" minutos"
+
     #si ve que el numero de lineas es menor a cierto numero se para
     if [ $numero_filas -le $num_lineas ];
         then 
@@ -29,11 +30,11 @@ do
         sed -i '/signed-resource-folder/d' ./ficheritoEfimeroParaHacerRedireccion.txt
         sed -i '/delta/d' ./ficheritoEfimeroParaHacerRedireccion.txt
         #muestra las opciones posibles
-        echo "*************************"
-        echo "*************************"
-        cat ficheritoEfimeroParaHacerRedireccion.txt
-        echo "*************************"
-        echo "*************************"
+#echo "*************************"
+#echo "*************************"
+#cat ficheritoEfimeroParaHacerRedireccion.txt
+#echo "*************************"
+#echo "*************************"
         #ese queda con la direccion donde hay un archivo y es el ultimo modificado
         directorio_archivo=$(grep $archivoBusqueda ficheritoEfimeroParaHacerRedireccion.txt |head -1 );
         #si no encuentra el archivo dice que lo hagas a mano
@@ -53,7 +54,11 @@ do
             break;
         fi;
         #si lo encuentra cambia el boooleano y pone la busqueda como exitosa
-        echo "Busqueda Exitosa"
+        echo "**************************"
+        echo "**************************"
+        echo "**** Busqueda Exitosa ****"
+        echo "**************************"
+        echo "**************************"
         let Exito+=1;
         break;
     fi;
