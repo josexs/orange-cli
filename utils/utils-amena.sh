@@ -32,6 +32,7 @@ showSubmenu2_amena() {
     showLogo
     printf "${white}-${yellow} 1)${colorPrimary} Preparar paquetes DU ${white}\n"
     printf "${white}-${yellow} 2)${colorPrimary} Buscar full y delta ${white}\n"
+    printf "${white}-${yellow} 3)${colorPrimary} Subir full y delta ${white}\n"
     printf "\n"
     msgFooterForQuestions "xx"
     read opt2
@@ -82,7 +83,7 @@ directUpdate_amena() {
     [ -d "$pathPackagesAmena/$packageDefaultMiAmenaiOS" ] && rm -r "$pathPackagesAmena/$packageDefaultMiAmenaiOS"
 
     # Generamos DU
-    # cd $pathRepoAmena && grunt DU
+    cd $pathRepoAmena && grunt DU
 
     utilsResponseWait "Descomprimiendo zip Android\n"
     cd $pathPackagesAmena && unzip -q "$packageDefaultMiAmenaAndroid.zip" -d "$pathPackagesAmena/$packageDefaultMiAmenaAndroid"
