@@ -39,6 +39,7 @@ showSubmenu2_orange() {
     printf "${white}-${yellow} 1)${colorPrimary} Preparar paquetes DU ${white}\n"
     printf "${white}-${yellow} 2)${colorPrimary} Buscar full y delta ${white}\n"
     printf "${white}-${yellow} 3)${colorPrimary} Subir full y delta ${white}\n"
+    printf "${white}-${yellow} 4)${colorPrimary} Desplegar movilizado ${white}\n"
     printf "\n"
     msgFooterForQuestions "xx"
     read opt2
@@ -129,9 +130,9 @@ directUpdate_orange() {
     # Modificamos la version en cada deployment.data y creamos el zip
     for i in "${versionsAndroidArray[@]}"; do
         
-        [ -d "$pathPackages/MiOrange-Androd-$i.zip" ] && rm "$pathPackages/MiOrange-Androd-$i.zip"
+        [ -d "$pathPackages/MiOrange-Android-$i.zip" ] && rm "$pathPackages/MiOrange-Android-$i.zip"
         cd "$pathPackages/$packageDefaultMiOrangeAndroid/meta/" && sed -i "" "s/$tempVersion/$i/g" *
-        cd "$pathPackages/$packageDefaultMiOrangeAndroid" && zip -rqo "$pathPackages/MiOrange-Androd-$i.zip" meta www
+        cd "$pathPackages/$packageDefaultMiOrangeAndroid" && zip -rqo "$pathPackages/MiOrange-Android-$i.zip" meta www
         utilsResponseOK "Version $i de Android, generada"
         tempVersion=$i
         lastVersionAndroid=$i
@@ -158,7 +159,7 @@ directUpdate_orange() {
     [ -d "$pathPackages/DU" ] && rm -r $pathPackages/DU
     mkdir $pathPackages/DU
     for i in "${versionsAndroidArray[@]}"; do
-        mv "$pathPackages/MiOrange-Androd-$i.zip" "$pathPackages/DU/MiOrange-Androd-$i.zip"
+        mv "$pathPackages/MiOrange-Android-$i.zip" "$pathPackages/DU/MiOrange-Android-$i.zip"
     done
 
     for i in "${versionsiOSArray[@]}"; do
@@ -177,9 +178,9 @@ directUpdate_orange() {
 generarVersionTest() {
     if [[ "$testVersions" = "s" ]]; then
         utilsResponseQuestion "Generando version de pruebas $versionTestAndroid/$versionTestiOS"
-        [ -d "$pathPackages/MiOrange-Androd-$versionTestAndroid.zip" ] && rm "$pathPackages/MiOrange-Androd-$versionTestAndroid.zip"
+        [ -d "$pathPackages/MiOrange-Android-$versionTestAndroid.zip" ] && rm "$pathPackages/MiOrange-Android-$versionTestAndroid.zip"
         cd "$pathPackages/$packageDefaultMiOrangeAndroid/meta/" && sed -i "" "s/$lastVersionAndroid/$versionTestAndroid/g" *
-        cd "$pathPackages/$packageDefaultMiOrangeAndroid" && zip -rqo "$pathPackages/MiOrange-Androd-$versionTestAndroid.zip" meta www
+        cd "$pathPackages/$packageDefaultMiOrangeAndroid" && zip -rqo "$pathPackages/MiOrange-Android-$versionTestAndroid.zip" meta www
         utilsResponseOK "Version $versionTestAndroid  Tets de Android, generada"
         [ -d "$pathPackages/MiOrange-iOS-$versionTestiOS.zip" ] && rm "$pathPackages/MiOrange-iOS-$versionTestiOS.zip"
         cd "$pathPackages/$packageDefaultMiOrangeiOS/meta/" && sed -i "" "s/$lastVersionIos/~~/g; s/$bundelOrangePro/$bundelOrangePre/g; s/~~/$versionTestiOS/g" * 
@@ -192,7 +193,7 @@ generarVersionTest() {
 }
 moverVersionTestDU(){
     if [[ "$testVersions" = "s" ]]; then
-      mv "$pathPackages/MiOrange-Androd-$versionTestAndroid.zip" "$pathPackages/DU/MiOrange-Androd-$versionTestAndroid.zip"
+      mv "$pathPackages/MiOrange-Android-$versionTestAndroid.zip" "$pathPackages/DU/MiOrange-Android-$versionTestAndroid.zip"
       mv "$pathPackages/MiOrange-iOS-$versionTestiOS.zip" "$pathPackages/DU/MiOrange-iOS-$versionTestiOS.zip"
     fi
 }
@@ -288,4 +289,27 @@ distributeAppCenter2() {
     fi
     nvm use 6.9.3 >/dev/null 2>&1
     exit
+}
+desplegarMovilizadoOrange(){
+    #TODO seguir por aqui
+    #1. Buscar el fichero y descomprimirlo
+    FILE="$pathBrowser/miOrange_web.zip"
+    EXECUTE_FILE="scriptsSubirArchivos/executeMovilizadoUAT.sh"
+    if [ -f "$FILE" ]; then
+      echo "$FILE exists."
+      unzip -q $FILE -d $pathBrowser
+      if [ -d "$pathBrowser/miOrange_web" ]; then
+         echo "existe directorio"
+         #2. Aceder al servidor y renombrar el directorio actual de miOrange de movilizado
+         sh $EXECUTE_FILE
+      fi
+      
+
+    else 
+       utilsResponseKO "NO Existe .zip de movilizado"
+        
+    fi  
+
+    
+    #3. Subir el directorio
 }

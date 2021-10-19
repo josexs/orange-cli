@@ -108,9 +108,9 @@ directUpdate_amena() {
 
     # Modificamos la version en cada deployment.data y creamos el zip
     for i in "${versionsAndroidArray[@]}"; do
-        [ -d "$pathPackagesAmena/MiAmena-Androd-$i.zip" ] && rm "$pathPackagesAmena/MiAmena-Androd-$i.zip"
+        [ -d "$pathPackagesAmena/MiAmena-Android-$i.zip" ] && rm "$pathPackagesAmena/MiAmena-Android-$i.zip"
         cd "$pathPackagesAmena/$packageDefaultMiAmenaAndroid/meta/" && sed -i "" "s/$tempVersionAmena/$i/g" *
-        cd "$pathPackagesAmena/$packageDefaultMiAmenaAndroid" && zip -rqo "$pathPackagesAmena/MiAmena-Androd-$i.zip" meta www
+        cd "$pathPackagesAmena/$packageDefaultMiAmenaAndroid" && zip -rqo "$pathPackagesAmena/MiAmena-Android-$i.zip" meta www
         utilsResponseOK "Version $i de Android, generada"
         tempVersionAmena=$i
         lastVersionAndroidAmena=$i
@@ -139,7 +139,7 @@ directUpdate_amena() {
     [ -d "$pathPackagesAmena/DU" ] && rm -r $pathPackagesAmena/DU
     mkdir $pathPackagesAmena/DU
     for i in "${versionsAndroidArray[@]}"; do
-        mv "$pathPackagesAmena/MiAmena-Androd-$i.zip" "$pathPackagesAmena/DU/MiAmena-Androd-$i.zip"
+        mv "$pathPackagesAmena/MiAmena-Android-$i.zip" "$pathPackagesAmena/DU/MiAmena-Android-$i.zip"
     done
 
     for i in "${versionsiOSArray[@]}"; do
@@ -159,9 +159,9 @@ directUpdate_amena() {
 generarVersionTestAmena() {
     if [[ "$testVersionsAmena" = "s" ]]; then
         utilsResponseQuestion "Generando version de pruebas Amena $versionTestAndroidAmena/$versionTestiOSAmena"
-        [ -d "$pathPackagesAmena/MiAmena-Androd-$versionTestAndroidAmena.zip" ] && rm "$pathPackagesAmena/MiAmena-Androd-$versionTestAndroidAmena.zip"
+        [ -d "$pathPackagesAmena/MiAmena-Android-$versionTestAndroidAmena.zip" ] && rm "$pathPackagesAmena/MiAmena-Android-$versionTestAndroidAmena.zip"
         cd "$pathPackagesAmena/$packageDefaultMiAmenaAndroid/meta/" && sed -i "" "s/$lastVersionAndroidAmena/$versionTestAndroidAmena/g" *
-        cd "$pathPackagesAmena/$packageDefaultMiAmenaAndroid" && zip -rqo "$pathPackagesAmena/MiAmena-Androd-$versionTestAndroidAmena.zip" meta www
+        cd "$pathPackagesAmena/$packageDefaultMiAmenaAndroid" && zip -rqo "$pathPackagesAmena/MiAmena-Android-$versionTestAndroidAmena.zip" meta www
         utilsResponseOK "Version $versionTestAndroidAmena  Tets de Android, generada"
         [ -d "$pathPackagesAmena/MiAmena-iOS-$versionTestiOSAmena.zip" ] && rm "$pathPackagesAmena/MiAmena-iOS-$versionTestiOSAmena.zip"
         cd "$pathPackagesAmena/$packageDefaultMiAmenaiOS/meta/" && sed -i "" "s/$lastVersionIosAmena/~~/g; s/$bundelAmenaPro/$bundelAmenaPre/g; s/~~/$versionTestiOSAmena/g" *
@@ -173,7 +173,7 @@ generarVersionTestAmena() {
 #Para mover la version de pruebas siempre que la opción sea sí
 moverVersionTestDUAmena(){
     if [[ "$testVersionsAmena" = "s" ]]; then
-      mv "$pathPackagesAmena/MiAmena-Androd-$versionTestAndroidAmena.zip" "$pathPackagesAmena/DU/MiAmena-Androd-$versionTestAndroidAmena.zip"
+      mv "$pathPackagesAmena/MiAmena-Android-$versionTestAndroidAmena.zip" "$pathPackagesAmena/DU/MiAmena-Android-$versionTestAndroidAmena.zip"
       mv "$pathPackagesAmena/MiAmena-iOS-$versionTestiOSAmena.zip" "$pathPackagesAmena/DU/MiAmena-iOS-$versionTestiOSAmena.zip"
     fi
 }

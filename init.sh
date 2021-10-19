@@ -7,6 +7,7 @@ source $ABSPATH/config.sh $1
 source $ABSPATH/utils/utils.sh
 source $ABSPATH/utils/utils-orange.sh
 source $ABSPATH/utils/utils-amena.sh
+source $ABSPATH/utils/utils-jazztel.sh
 source $ABSPATH/subirRedireccion.sh
 
 if [ $error = true ]; then
@@ -17,6 +18,8 @@ fi
 showLogo() {
     if [ $brand = 'orange' ]; then
         showLogo_orange
+    elif [ $brand = 'jazztel' ]; then
+        showLogo_jazztel 
     else
         showLogo_amena
     fi
@@ -26,6 +29,8 @@ showLogo() {
 showMenu() {
     if [ $brand = 'orange' ]; then
         showMenuInit_orange
+   elif [ $brand = 'jazztel' ]; then
+        showMenuInit_jazztel      
     else
         showMenuInit_amena
     fi
@@ -34,6 +39,8 @@ showMenu() {
 showSubmenu1() {
     if [ $brand = 'orange' ]; then
         showSubmenu1_orange
+    elif [ $brand = 'jazztel' ]; then
+        showSubmenu1_jazztel   
     else
         showSubmenu1_amena
     fi
@@ -42,6 +49,8 @@ showSubmenu1() {
 showSubmenu2() {
     if [ $brand = 'orange' ]; then
         showSubmenu2_orange
+    elif [ $brand = 'jazztel' ]; then
+        showSubmenu2_jazztel     
     else
         showSubmenu2_amena
     fi
@@ -58,8 +67,17 @@ showSubmenu3() {
 directUpdate() {
     if [ $brand = 'orange' ]; then
         directUpdate_orange
+    elif [ $brand = 'jazztel' ]; then
+        directUpdate_jazztel       
     else
         directUpdate_amena
+    fi
+}
+desplegarMovilizado() {
+    if [ $brand = 'orange' ]; then
+        desplegarMovilizadoOrange
+    else
+        desplegarMovilizadoAmena
     fi
 }
 
@@ -96,6 +114,8 @@ xx() {
 optionsForQuestions() {
     if [ $brand = 'orange' ]; then
         optionsForQuestions_orange
+    elif [ $brand = 'jazztel' ]; then
+       optionsForQuestions_jazztel
     else
         optionsForQuestions_amena
     fi
@@ -133,6 +153,7 @@ optionsForQuestions_orange() {
                 1) directUpdate ;;
                 2) buscarFullDelta ;;
                 3) subirArchivos ;;
+                4) desplegarMovilizado ;;
                 xx) xx ;;
                 esac
                 read opt2
@@ -179,6 +200,29 @@ optionsForQuestions_amena() {
                 case $opt2 in
                 1) directUpdate ;;
                 2) buscarFullDelta ;;
+                3) desplegarMovilizado ;;
+                xx) xx ;;
+                esac
+                read opt2
+                ;;
+            esac
+        fi
+    done
+}
+
+optionsForQuestions_jazztel(){
+     while [ $opt != '' ]; do
+        if [ $opt = '' ]; then
+            exit
+        else
+            case $opt in
+            1)
+                opt2=0
+                title="Direct Update"
+                clear
+                showSubmenu2
+                case $opt2 in
+                1) directUpdate ;;
                 xx) xx ;;
                 esac
                 read opt2

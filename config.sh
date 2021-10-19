@@ -41,12 +41,21 @@ ruta_base=$(grep ruta_base .env | xargs)
 IFS='=' read -ra ruta_base <<<"$ruta_base"
 ruta_base=${ruta_base[1]}
 
+
+pathRepoJazztel=$(grep pathRepoJazztel .env | xargs)
+IFS='=' read -ra pathRepoJazztel <<<"$pathRepoJazztel"
+pathRepoJazztel=${pathRepoJazztel[1]}
+
 pathPackages="$pathRepoOrange/mobilefirst"
 pathBrowser="$pathRepoOrange/archive"
 pathPackagesAmena="$pathRepoAmena/mobilefirst"
 pathBrowserAmena="$pathRepoAmena/archive"
+pathPackagesJazztel="$pathRepoJazztel/mobilefirst"
+pathBrowserJazztel="$pathRepoJazztel/browserBuilds"
 packageDefaultMiOrangeAndroid='com.orange.miorange-android-6.6.6'
 packageDefaultMiOrangeiOS='com.everis.orange.miorange.pro-ios-6.6.6'
+packageDefaultMiJazztelAndroid='com.orange.bluu.jazztel-android-2.3.3'
+packageDefaultMiJazzteliOS='com.orange.sp.jazztel-ios-2.3.3'
 packageDefaultMiAmenaAndroid='com.orange.miamena-android-4.3.0'
 packageDefaultMiAmenaiOS='com.orange.sp.miamena-ios-4.3.0'
 
@@ -54,11 +63,15 @@ bundelOrangePro="com.orange.sp.miorange"
 bundelAmenaPro="com.orange.sp.miamena"
 bundelOrangePre="com.everis.orange.miorange.pro"
 bundelAmenaPre="com.everis.orange.miamena.pro"
+bundelJazztelPro="com.orange.sp.jazztel"
+bundelJazztelPre="com.everis.jazztel.pro"
+
 
 versionDefault="6.6.6"
 versionDefaultAmena="4.3.0"
+versionDefaultJazztel="2.3.3"
 appChecksum=""
-versionTestAndroid="30.0"
+versionTestAndroid="100.1"
 versionTestiOS="30.0"
 versionTestiOSAmena="50.0"
 versionTestAndroidAmena="50.0"
