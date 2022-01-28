@@ -223,6 +223,8 @@ optionsForQuestions_jazztel(){
                 showSubmenu2
                 case $opt2 in
                 1) directUpdate ;;
+                2) buscarFullDelta ;;
+                3) subirArchivos ;;
                 xx) xx ;;
                 esac
                 read opt2

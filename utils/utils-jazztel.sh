@@ -21,10 +21,6 @@ selectEnvAndPrepare() {
     printf "$opt1"
 }
 
-buscarFullDelta(){
-    ssh $userMF@$servidorMF 'bash -s'  < buscarArchivo.sh $rutaBusqueda $archivoBusqueda $servidorMF
-}
-
 
 showSubmenu1_jazztel(){
     showLogo
@@ -43,10 +39,10 @@ showSubmenu1_jazztel(){
 showSubmenu2_jazztel() {
     showLogo
     printf "${white}-${yellow} 1)${colorPrimary} Preparar paquetes DU ${white}\n"
-    #printf "${white}-${yellow} 2)${colorPrimary} Buscar full y delta ${white}\n"
-    #printf "${white}-${yellow} 3)${colorPrimary} Subir full y delta ${white}\n"
+    printf "${white}-${yellow} 2)${colorPrimary} Buscar full y delta ${white}\n"
+    printf "${white}-${yellow} 3)${colorPrimary} Subir full y delta ${white}\n"
     #printf "${white}-${yellow} 4)${colorPrimary} Desplegar movilizado ${white}\n"
-    #printf "\n"
+    printf "\n"
     msgFooterForQuestions "xx"
     read opt2
 }
