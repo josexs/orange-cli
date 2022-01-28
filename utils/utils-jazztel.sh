@@ -1,17 +1,10 @@
 showLogo_jazztel() {
-    printf "${yellow}  JAZZTEL    ${white}\n"
-    printf "${yellow}  JAZZTEL    ${white}\n"
-    printf "${yellow}  JAZZTEL    ${white}\n"
-    printf "${yellow}  JAZZTEL    ${white}\n"
-    printf "\n"
-}
-
-showLogo_jazztel2() {
-    printf "${yellow}  ----    ${white}\n"
-    printf "${yellow}  JAZZTEL    ${white}\n"
-    printf "${yellow}  JAZZTEL    ${white}\n"
-    printf "${yellow}  JAZZTEL    ${white}\n"
-    printf "\n"
+    printf "${yellow}      _  ____  ____  ____  _____  _____ _      ${white}\n"
+    printf "${yellow}     / |/  _ \/_   \/_   \/__ __\/  __// \     ${white}\n"
+    printf "${yellow}     | || / \| /   / /   /  / \  |  \  | |     ${white}\n"
+    printf "${yellow}  /\_| || |-||/   /_/   /_  | |  |  /_ | |_/\  ${white}\n"
+    printf "${yellow}  \____/\_/ \|\____/\____/  \_/  \____\\____/  ${white}\n"
+    printf "${yellow}                                               ${white}\n"
 }
 
 # Questions
