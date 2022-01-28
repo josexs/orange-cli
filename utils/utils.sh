@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-lastUpdate="05-01-21"
+lastUpdate="28-01-2022"
 
 # Colores
 white=$(echo "\033[0;37m")
