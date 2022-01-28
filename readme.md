@@ -5,6 +5,7 @@ Creamos un archivo .env en la raiz con los siguientes datos:
 ```
 pathRepoOrange=""
 pathRepoAmena=""
+pathRepoJazztel=""
 appIdAppCenter=""
 userMF=""
 servidorMF=""
@@ -24,4 +25,5 @@ archivoBusqueda=""
 ### Iniciar CLI
 - **sh init.sh orange**
 - **sh init.sh amena**
+- **sh init.sh jazztel**
 

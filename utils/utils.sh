@@ -33,6 +33,13 @@ setColorsAmena() {
   colorSuccess=$green
 }
 
+setColorsJazztel() {
+  colorPrimary=$yellow
+  colorSecondary=$white
+  colorError=$red
+  colorSuccess=$green
+}
+
 showLastUpdate() {
   printf "Ultima actualizacion: ${colorPrimary}$lastUpdate\n\n"
 }
@@ -66,6 +73,8 @@ if [ "$brand" == "orange" ]; then
   setColorsOrange
 elif [ "$brand" == "amena" ]; then
   setColorsAmena
+elif [ "$brand" == "jazztel" ]; then
+  setColorsJazztel
 else
   error=true
 fi
