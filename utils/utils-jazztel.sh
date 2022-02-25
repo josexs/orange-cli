@@ -62,7 +62,9 @@ directUpdate_jazztel() {
     [ -d "$pathPackagesJazztel/$packageDefaultMiJazzteliOS" ] && rm -r "$pathPackagesJazztel/$packageDefaultMiJazzteliOS"
      
     # Generamos DU
-    # cd $pathRepoAmena && grunt DU
+    rm -r $pathBrowserJazztel
+    mkdir $pathBrowserJazztel
+    cd $pathRepoJazztel && npm run generate:du-delivery
 
     utilsResponseWait "Descomprimiendo zip Android\n"
     cd $pathPackagesJazztel && unzip -q "$packageDefaultMiJazztelAndroid.zip" -d "$pathPackagesJazztel/$packageDefaultMiJazztelAndroid"

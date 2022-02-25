@@ -1,7 +1,8 @@
 #!/bin/bash
-HOST=""
-USER=""
-PASS=""
+HOST=$servidor72
+USER=$user72
+PASS=$pass72
+
 CMD=$@
 VAR=$(expect -c "
 spawn ssh -o StrictHostKeyChecking=no $USER@$HOST $CMD

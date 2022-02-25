@@ -25,6 +25,30 @@ userMF=$(grep userMF .env | xargs)
 IFS='=' read -ra userMF <<<"$userMF"
 userMF=${userMF[1]}
 
+user72=$(grep user72 .env | xargs)
+IFS='=' read -ra user72 <<<"$user72"
+user72=${user72[1]}
+
+servidor72=$(grep servidor72 .env | xargs)
+IFS='=' read -ra servidor72 <<<"$servidor72"
+servidor72=${servidor72[1]}
+
+pass72=$(grep pass72 .env | xargs)
+IFS='=' read -ra pass72 <<<"$pass72"
+pass72=${pass72[1]}
+
+user84=$(grep user84 .env | xargs)
+IFS='=' read -ra user84 <<<"$user84"
+user84=${user84[1]}
+
+servidor84=$(grep servidor84 .env | xargs)
+IFS='=' read -ra servidor84 <<<"$servidor84"
+servidor84=${servidor84[1]}
+
+pass84=$(grep pass84 .env | xargs)
+IFS='=' read -ra pass84 <<<"$pass84"
+pass84=${pass84[1]}
+
 rutaBusqueda=$(grep rutaBusqueda .env | xargs)
 IFS='=' read -ra rutaBusqueda <<<"$rutaBusqueda"
 rutaBusqueda=${rutaBusqueda[1]}
@@ -54,8 +78,8 @@ pathPackagesJazztel="$pathRepoJazztel/mobilefirst"
 pathBrowserJazztel="$pathRepoJazztel/browserBuilds"
 packageDefaultMiOrangeAndroid='com.orange.miorange-android-6.6.6'
 packageDefaultMiOrangeiOS='com.everis.orange.miorange.pro-ios-6.6.6'
-packageDefaultMiJazztelAndroid='com.orange.bluu.jazztel-android-2.3.3'
-packageDefaultMiJazzteliOS='com.orange.sp.jazztel-ios-2.3.3'
+packageDefaultMiJazztelAndroid='com.orange.bluu.jazztel-android-2.3.7'
+packageDefaultMiJazzteliOS='com.orange.sp.jazztel-ios-2.3.7'
 packageDefaultMiAmenaAndroid='com.orange.miamena-android-4.3.0'
 packageDefaultMiAmenaiOS='com.orange.sp.miamena-ios-4.3.0'
 

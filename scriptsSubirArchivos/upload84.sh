@@ -1,7 +1,7 @@
 #!/bin/bash
-HOST=""
-USER=""
-PASS=""
+HOST=$servidor84
+USER=$user84
+PASS=$pass84
 FICHEROS=$1
 DIRECTORIO_REMOTO=$2
  

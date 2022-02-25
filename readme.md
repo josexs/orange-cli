@@ -11,6 +11,13 @@ userMF=""
 servidorMF=""
 rutaBusqueda=""
 archivoBusqueda=""
+user72=""
+servidor72=""
+pass72=""
+user84=""
+servidor84=""
+pass84=""
+
 ```
 
 ### Requisitos
